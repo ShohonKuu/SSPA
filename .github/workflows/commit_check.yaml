@@ -1,0 +1,37 @@
+name: Commit Message Check
+
+on:
+  push:
+    branches: ["**"]
+
+jobs:
+  commit-message:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enforce commit message pattern
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pattern = /^(feat|fix|refactor|chore|docs|test|perf): .+/;
+
+            const commits = context.payload.commits || [];
+            if (commits.length === 0) {
+              core.info('No commits found in this push (skipping).');
+              return;
+            }
+
+            const bad = [];
+            for (const c of commits) {
+              const subject = (c.message || '').split('\n')[0];
+              if (subject.startsWith('Merge ')) continue; // 跳过 merge 提交
+              if (!pattern.test(subject)) bad.push(subject);
+            }
+
+            if (bad.length) {
+              core.setFailed(
+                `Commit messages must match ${pattern}. Offenders:\n- ` +
+                bad.map(s => `"${s}"`).join('\n- ')
+              );
+            } else {
+              core.info('All commit messages match.');
+            }
