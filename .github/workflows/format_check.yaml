@@ -19,7 +19,7 @@ jobs:
           uv --version
 
       - name: Ruff (lint/style)
-        run: uvx ruff==0.6.9 check .
+        run: uvx ruff==0.6.9 check src
 
       - name: Black (format check)
-        run: uvx black@24.10.0 --check .
+        run: uvx black@24.10.0 --check src
