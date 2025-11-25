@@ -26,7 +26,10 @@ class SchemaRegistry:
         if isinstance(obj, str):
             return obj
         if isinstance(obj, type):
-            return self.class_to_name.get(obj, obj.__name__)
+            if obj in self.class_to_name:
+                return self.class_to_name[obj]
+            # Fall back to a stored schema alias if present (e.g., from @schema(name="Alias"))
+            return getattr(obj, "__schema_name__", obj.__name__)
         raise TypeError("Expected a class or string for ref resolution.")
 
     # ---- components ----
