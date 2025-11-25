@@ -6,6 +6,7 @@ from sspa.core.schema.registry import (
     set_current_registry,
     use_registry,
 )
+from sspa.core.schema.decorator import schema
 
 # ------------------------------ SchemaRegistry core ------------------------------
 
@@ -61,6 +62,18 @@ def test_resolve_name_for_string_class_and_errors():
     # wrong type
     with pytest.raises(TypeError):
         reg.resolve_name(123)  # neither str nor class
+
+
+def test_resolve_name_uses_schema_alias_when_not_registered():
+    """If a class carries __schema_name__, resolver uses it even before re-registration."""
+    source_reg = SchemaRegistry()
+    with use_registry(source_reg):
+        @schema("Alias")
+        class Ghost: ...
+
+    target_reg = SchemaRegistry()
+    assert target_reg.class_to_name == {}
+    assert target_reg.resolve_name(Ghost) == "Alias"
 
 
 def test_put_component_and_clear_and_snapshot():
