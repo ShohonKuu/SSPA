@@ -1,13 +1,13 @@
 # tests/test_fields_coverage.py
-# Purpose: Achieve 100% coverage for sspa.core.schema.fields.
+# Purpose: Achieve 100% coverage for ssap.core.schema.fields.
 # Notes:
 # - All comments/docstrings are in English as requested.
 # - The tests assume your package is installed in editable mode (pip install -e .).
 
 import pytest
 
-import sspa.core.schema.fields as fmod
-from sspa.core.schema.fields import (
+import ssap.core.schema.fields as fmod
+from ssap.core.schema.fields import (
     FieldDescriptor,
     Ref,
     field,

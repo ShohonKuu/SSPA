@@ -3,9 +3,9 @@ from typing import Any, Dict, Sequence, Type, Optional
 
 import yaml
 
-from sspa.core.schema.decorator import schema, get_components_registry
-from sspa.core.schema.registry import SchemaRegistry, use_registry
-from sspa.core.path.export import export_paths_dict
+from ssap.core.schema.decorator import schema, get_components_registry
+from ssap.core.schema.registry import SchemaRegistry, use_registry
+from ssap.core.path.export import export_paths_dict
 
 
 def to_yaml(data: Dict[str, Any]) -> str:

@@ -1,7 +1,7 @@
 # Purpose: Validate response/body/media spec constructors with json_media().
 
-from sspa.core.path.dsl import RespSpec, MediaTypeSpec, RequestBodySpec
-from sspa.core.path import resp, json_media, body
+from ssap.core.path.dsl import RespSpec, MediaTypeSpec, RequestBodySpec
+from ssap.core.path import resp, json_media, body
 
 
 def test_resp_no_body_fullname():

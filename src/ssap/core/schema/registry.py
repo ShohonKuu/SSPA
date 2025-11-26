@@ -1,4 +1,4 @@
-# src/sspa/core/schema/registry.py
+# src/ssap/core/schema/registry.py
 from __future__ import annotations
 from typing import Any, Dict, Optional, Type
 from contextlib import contextmanager

@@ -1,7 +1,7 @@
 # Purpose: Validate full-name ParamSpec builders produce correct spec objects.
 
-from sspa.core.path.dsl import ParamSpec
-from sspa.core.path import path_param, query_param, header_param, cookie_param
+from ssap.core.path.dsl import ParamSpec
+from ssap.core.path import path_param, query_param, header_param, cookie_param
 
 
 def test_path_param_builder():

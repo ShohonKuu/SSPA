@@ -1,6 +1,6 @@
 from __future__ import annotations
 from typing import Any, Dict, List, Optional, Union, Sequence
-from sspa.core.schema.registry import get_current_registry
+from ssap.core.schema.registry import get_current_registry
 
 # Allowed OpenAPI/JSON Schema primitive types (OAS 3.1 aligned, simplified)
 PRIMITIVES = {"string", "integer", "number", "boolean", "object", "array", "null"}
