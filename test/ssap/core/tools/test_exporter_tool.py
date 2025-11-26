@@ -1,13 +1,13 @@
 import yaml
 
-from sspa.core.tools.exporter import (
+from ssap.core.tools.exporter import (
     to_yaml,
     build_components_schemas,
     export_schema_yaml,
 )
-from sspa.core.schema.decorator import schema
-from sspa.core.schema.fields import field
-from sspa.core.schema.registry import SchemaRegistry, use_registry
+from ssap.core.schema.decorator import schema
+from ssap.core.schema.fields import field
+from ssap.core.schema.registry import SchemaRegistry, use_registry
 
 
 @schema

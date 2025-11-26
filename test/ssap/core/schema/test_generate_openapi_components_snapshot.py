@@ -1,9 +1,9 @@
 import json
 import pytest
 
-from sspa.core.schema.decorator import schema, get_components_registry
-from sspa.core.schema.fields import field, get_schema_registry
-from sspa.core.schema.registry import get_current_registry
+from ssap.core.schema.decorator import schema, get_components_registry
+from ssap.core.schema.fields import field, get_schema_registry
+from ssap.core.schema.registry import get_current_registry
 
 
 @pytest.fixture(autouse=True)

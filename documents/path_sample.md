@@ -73,15 +73,15 @@ paths:
 
 ```
 
-
 ```python
 
-from sspa.http import (
+from ssap.http import (
     path, get, put, delete,
     pth, q, hdr, body, resp, json as mt,
     ex, auto_ex,
 )
 from your.schemas import Catalog  # your @schema class, auto-resolved to $ref
+
 
 @path(
     "/stores/{storeId}/catalog",
@@ -108,7 +108,7 @@ class StoreCatalog:
         # Return values match responses order: [for 200, for 304]
         return [
             auto_ex(Catalog, overrides={"version": "1.0"}),  # example for 200
-            None,                                           # 304 has no body
+            None,  # 304 has no body
         ]
 
     @put(
@@ -125,15 +125,18 @@ class StoreCatalog:
         responses=[
             resp(200, desc="Catalog updated"),
             resp(201, desc="Catalog created"),
-            resp(409, desc="Conflict (ETag mismatch")),
-        ],
+            resp(409, desc="Conflict (ETag mismatch"))
+
+    ,
+    ],
     )
+
     def put(self):
         # Order: [for 200, for 201, for 409]
         return [
             ex(Catalog, version="1.1"),  # 200 example
             ex(Catalog, version="1.1"),  # 201 example
-            None,                        # 409 no body
+            None,  # 409 no body
         ]
 
     @delete(

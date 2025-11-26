@@ -136,12 +136,9 @@ components:
         - featuredProduct
 ```
 
-
-
-
 ```python
-from sspa.core.schema.fields import field
-from sspa.core.schema.decorator import schema
+from ssap.core.schema.fields import field
+from ssap.core.schema.decorator import schema
 
 
 @schema
