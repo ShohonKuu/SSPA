@@ -2,7 +2,7 @@ import difflib
 import yaml
 import pytest
 
-from sspa.core.path import (
+from ssap.core.path import (
     PathRegistry,
     use_path_registry,
     path,
@@ -16,7 +16,7 @@ from sspa.core.path import (
     resp,
     json_media,
 )
-from sspa.core.tools.exporter import (
+from ssap.core.tools.exporter import (
     build_paths,
 )  # uses export_paths_dict under the hood
 

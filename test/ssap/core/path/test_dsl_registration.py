@@ -3,7 +3,7 @@
 
 import pytest
 
-from sspa.core.path import (
+from ssap.core.path import (
     PathRegistry,
     use_path_registry,
     path,
@@ -17,8 +17,8 @@ from sspa.core.path import (
     resp,
     json_media,
 )
-from sspa.core.path.registry import PathRecord
-from sspa.core.path.model import PathItem
+from ssap.core.path.registry import PathRecord
+from ssap.core.path.model import PathItem
 
 
 @pytest.fixture()

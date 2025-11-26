@@ -1,8 +1,8 @@
 from __future__ import annotations
 from typing import Any, Dict, Optional, Type
 
-from sspa.core.schema.fields import _preview_object_schema
-from sspa.core.schema.registry import get_current_registry, SchemaRegistry
+from ssap.core.schema.fields import _preview_object_schema
+from ssap.core.schema.registry import get_current_registry, SchemaRegistry
 
 __all__ = ["schema", "get_components_registry"]
 

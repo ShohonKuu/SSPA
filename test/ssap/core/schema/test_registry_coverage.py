@@ -1,12 +1,12 @@
 import pytest
 
-from sspa.core.schema.registry import (
+from ssap.core.schema.registry import (
     SchemaRegistry,
     get_current_registry,
     set_current_registry,
     use_registry,
 )
-from sspa.core.schema.decorator import schema
+from ssap.core.schema.decorator import schema
 
 # ------------------------------ SchemaRegistry core ------------------------------
 
