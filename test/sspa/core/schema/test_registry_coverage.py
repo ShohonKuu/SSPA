@@ -68,6 +68,7 @@ def test_resolve_name_uses_schema_alias_when_not_registered():
     """If a class carries __schema_name__, resolver uses it even before re-registration."""
     source_reg = SchemaRegistry()
     with use_registry(source_reg):
+
         @schema("Alias")
         class Ghost: ...
 

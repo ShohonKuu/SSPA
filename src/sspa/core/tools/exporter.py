@@ -5,6 +5,7 @@ import yaml
 
 from sspa.core.schema.decorator import schema, get_components_registry
 from sspa.core.schema.registry import SchemaRegistry, use_registry
+from sspa.core.path.export import export_paths_dict
 
 
 def to_yaml(data: Dict[str, Any]) -> str:
@@ -72,3 +73,61 @@ def export_schema_yaml(
     """
     doc = build_components_schemas(classes, registry=registry)
     return to_yaml(doc)
+
+
+def build_openapi_document(
+    *,
+    info: Dict[str, Any],
+    openapi: str = "3.0.1",
+    schema_classes: Sequence[Type] | None = None,
+    registry: Optional[SchemaRegistry] = None,
+) -> Dict[str, Any]:
+    """
+    Assemble a full OpenAPI document by stitching together paths (from the path DSL)
+    and optional schema components.
+    """
+    doc: Dict[str, Any] = {
+        "openapi": openapi,
+        "info": info,
+        "paths": export_paths_dict(),
+    }
+    if schema_classes:
+        doc.update(build_components_schemas(schema_classes, registry=registry))
+    return doc
+
+
+def export_openapi_yaml(
+    *,
+    info: Dict[str, Any],
+    openapi: str = "3.0.1",
+    schema_classes: Sequence[Type] | None = None,
+    registry: Optional[SchemaRegistry] = None,
+) -> str:
+    """
+    Convenience helper to dump the full OpenAPI document (paths + components) to YAML.
+    """
+    return to_yaml(
+        build_openapi_document(
+            info=info,
+            openapi=openapi,
+            schema_classes=schema_classes,
+            registry=registry,
+        )
+    )
+
+
+def build_paths() -> Dict[str, Any]:
+    """
+    Build a dict of the form:
+      { "paths": { <url>: <PathItemDict>, ... } }
+    """
+    return {"paths": export_paths_dict()}
+
+
+def export_paths_yaml() -> str:
+    """
+    Convenience: YAML string for just the paths tree:
+      paths:
+        /...: ...
+    """
+    return to_yaml(build_paths())

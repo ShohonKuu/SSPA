@@ -132,10 +132,10 @@ class FieldDescriptor:
         # store name later in __set_name__
         self.name: Optional[str] = None
 
-        # normalize type_
+        # Normalize type_ into list for consistent validation paths.
         type_list = _as_type_list(type_)
 
-        # handle $ref path
+        # Short-circuit when ref is provided; other object hints are illegal here.
         if ref is not None:
             if any(x is not None for x in (type_, items, properties, required_props)):
                 raise ValueError(
@@ -157,20 +157,20 @@ class FieldDescriptor:
             }
             return  # done
 
-        # no ref path: validate types
+        # No ref path: validate primitive types are allowed.
         unknown = [t for t in type_list if t not in PRIMITIVES]
         if unknown:
             raise ValueError(
                 f"Invalid type_ entries: {unknown}. Allowed: {sorted(PRIMITIVES)}"
             )
 
-        # forbid object (must use ref)
+        # Objects must be modeled via $ref instead of inline schemas.
         if "object" in type_list:
             raise ValueError(
                 "Object type is forbidden in strict mode; use 'ref=\"Xxx\"' instead."
             )
 
-        # array: require valid items
+        # Arrays must provide items; normalize class items to $ref.
         normalized_items = items
         if "array" in type_list:
             if items is None:
@@ -227,7 +227,7 @@ class FieldDescriptor:
         """
         m = self.meta
 
-        # $ref-only object
+        # $ref-only object; no other keywords allowed here.
         if m.get("ref"):
             return {"$ref": f"#/components/schemas/{m['ref']}"}
 
