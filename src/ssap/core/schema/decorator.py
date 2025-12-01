@@ -1,4 +1,5 @@
 from __future__ import annotations
+import inspect
 from typing import Any, Dict, Optional, Type
 
 from ssap.core.schema.fields import _preview_object_schema
@@ -86,6 +87,12 @@ def schema(
 
     def _decorate(cls: Type) -> Type:
         comp_name = effective_name or cls.__name__
+        file_id = positional_name or comp_name
+
+        try:
+            src = inspect.getsourcefile(cls) or inspect.getfile(cls)
+        except Exception:
+            src = None
 
         # 1) Build object-level schema from FieldDescriptor metadata.
         obj_schema = _preview_object_schema(cls)
@@ -98,6 +105,8 @@ def schema(
 
         # Convenience/debugging hooks on the class.
         cls.__schema_name__ = comp_name
+        cls.__schema_file_id__ = file_id
+        cls.__schema_source__ = src
         cls.__openapi_schema__ = obj_schema
         return cls
 

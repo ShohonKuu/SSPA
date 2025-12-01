@@ -31,7 +31,8 @@ def fresh_registry():
 @pytest.fixture()
 def StoreCatalog(fresh_registry):
     @path(
-        "/stores/{storeId}/catalog",
+        "store_catalog",
+        url="/stores/{storeId}/catalog",
         tags=["Store"],
         params=[
             path_param(
@@ -144,3 +145,11 @@ def test_method_return_convention_example_list(StoreCatalog):
     assert isinstance(sc.get(), list)
     assert isinstance(sc.put(), list)
     assert isinstance(sc.delete(), list)
+
+
+def test_default_path_file_id_from_url(fresh_registry):
+    @path(url="/foo/{id}/bar-baz")
+    class Sample:
+        pass
+
+    assert getattr(Sample, "__path_file_id__") == "foo_id_bar-baz"

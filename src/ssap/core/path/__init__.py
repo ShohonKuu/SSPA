@@ -34,6 +34,7 @@ __all__ = [
     "path_param",
     "query_param",
     "header_param",
+    "cookie_param",
     "body",
     "request_body",
     "resp",

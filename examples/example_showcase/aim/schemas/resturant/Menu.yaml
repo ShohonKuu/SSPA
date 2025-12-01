@@ -1,0 +1,7 @@
+type: object
+properties:
+  items:
+    type: array
+    description: Dish list
+    items: { $ref: ./MenuItem.yaml }
+required: [items]

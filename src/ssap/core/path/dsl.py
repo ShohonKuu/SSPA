@@ -1,4 +1,5 @@
 from __future__ import annotations
+import inspect
 from dataclasses import dataclass
 from typing import Any, Callable, Dict, List, Optional, Type
 
@@ -155,21 +156,53 @@ body = request_body
 
 # -------- Class decorator for path --------
 def path(
-    url: str,
+    file_id: Optional[str] = None,
     *,
+    url: str,
     tags: List[str] | None = None,
     params: List[ParamSpec] | None = None,
     summary: str | None = None,
     description: str | None = None,
     security: Optional[List[Dict[str, List[str]]]] = None,
 ):
+    """
+    The first positional argument (file_id) is used as the output YAML basename.
+    """
+
+    def _default_path_file_id(url_value: str, cls: Type) -> str:
+        slug = url_value.strip("/")
+        if not slug:
+            slug = cls.__name__ or "path_item"
+        cleaned = []
+        for ch in slug:
+            if ch == "/":
+                cleaned.append("_")
+            elif ch in "{}":
+                continue
+            elif ch.isalnum() or ch in {"-", "_"}:
+                cleaned.append(ch)
+            else:
+                cleaned.append("_")
+        res = "".join(cleaned).strip("_")
+        if not res:
+            res = cls.__name__ or "path_item"
+        return res
+
     def _wrap(cls: Type) -> Type:
         setattr(cls, "__path_url__", url)
+        setattr(cls, "__path_file_id__", file_id or _default_path_file_id(url, cls))
         setattr(cls, "__path_tags__", tags or [])
         setattr(cls, "__path_params__", params or [])
         setattr(cls, "__path_summary__", summary)
         setattr(cls, "__path_description__", description)
         setattr(cls, "__path_security__", security)
+
+        try:
+            src = inspect.getsourcefile(cls) or inspect.getfile(cls)
+        except Exception:
+            src = None
+        setattr(cls, "__path_source__", src)
+
         reg = get_current_path_registry()
         reg.ensure(url)
         reg.add_class(url, cls)

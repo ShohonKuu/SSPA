@@ -1,0 +1,13 @@
+openapi: 3.0.1
+info:
+  title: Demo API
+  version: "1.0.0"
+
+paths:
+  /restaurants/{id}/menu:
+    $ref: ./paths/resturant/restaurant_menu.yaml
+
+components:
+  schemas:
+    MenuItem: { $ref: ./schemas/resturant/MenuItem.yaml }
+    Menu: { $ref: ./schemas/resturant/Menu.yaml }
