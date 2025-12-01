@@ -30,7 +30,8 @@ def fresh_registry():
 @pytest.fixture()
 def StoreCatalog(fresh_registry):
     @path(
-        "/stores/{storeId}/catalog",
+        "store_catalog",
+        url="/stores/{storeId}/catalog",
         tags=["Store"],
         params=[
             path_param(

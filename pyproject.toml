@@ -9,3 +9,6 @@ dependencies = [
     "pytest-cov>=7.0.0",
     "pyyaml>=6.0.3",
 ]
+
+[project.scripts]
+sspa-export = "ssap.tools.cli:main"

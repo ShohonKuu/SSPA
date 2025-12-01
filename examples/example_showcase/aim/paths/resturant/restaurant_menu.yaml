@@ -1,0 +1,21 @@
+get:
+  summary: Get menu by restaurant id
+  tags: ["Restaurant"]
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: Restaurant id
+      schema: { type: integer, format: int64 }
+  responses:
+    "200":
+      description: OK
+      content:
+        application/json:
+          schema: { $ref: ../../schemas/resturant/Menu.yaml }
+          example:
+            items:
+              - name: Fried Rice
+                price: 12.5
+    "404":
+      description: Not found
